@@ -2,7 +2,7 @@ $completers = Get-ChildItem -Path "$PSScriptRoot\Completers\" -Filter '*.ps1' -E
 
 foreach($item in $completers)
 {
-    $message = 'Importing Completer: {0}' -f $import.FullName
+    $message = 'Importing Completer: {0}' -f $item.FullName
     Write-Verbose -Message $message
     & $item.FullName
 }
