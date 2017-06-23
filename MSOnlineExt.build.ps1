@@ -9,14 +9,16 @@ task Test {
         $test_file = 'TestResults_{0}_{1}.xml' -f $PSVersionTable.PSVersion.ToString(), (Get-Date -UFormat '%Y%m%d-%H%M%S')
         $out_file = Join-Path -Path $test_path -ChildPath $test_file
         Invoke-Pester -Path $test_path -OutputFormat 'NUnitXml' -OutputFile $out_file
-        $upload_params = @{
-            Method = 'Post'
-            UseBasicParsing = $true
-            ContentType = 'multipart/form-data'
-            Uri = 'https://ci.appveyor.com/api/testresults/nunit/{0}' -f $env:APPVEYOR_JOB_ID
-            InFile = $out_file
-        }
-        Invoke-WebRequest @upload_params
+        # $upload_params = @{
+        #     Method = 'Post'
+        #     UseBasicParsing = $true
+        #     ContentType = 'multipart/form-data'
+        #     Uri = 'https://ci.appveyor.com/api/testresults/nunit/{0}' -f $env:APPVEYOR_JOB_ID
+        #     InFile = $out_file
+        # }
+        # Invoke-WebRequest @upload_params
+        $wc = [System.Net.WebClient]::new()
+        $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)",$out_file)
     }
     else
     {
