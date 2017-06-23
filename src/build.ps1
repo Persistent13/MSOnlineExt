@@ -2,7 +2,7 @@ task Clean, Test, Deploy {
     $deploy = {
         Deploy Module {
             By PSGalleryModule {
-                FromSource MSOnline-Extensions
+                FromSource MSOnlineExt
                 To PSGallery
                 WithOptions @{
                     ApiKey = $env:NugetApiKey
@@ -17,9 +17,9 @@ task Test {
     Invoke-Pester $test_path
 }
 task Clean {
-    if(Get-Module -Name 'MSOnline-Extensions')
+    if(Get-Module -Name 'MSOnlineExt')
     {
-        Remove-Module -Name 'MSOnline-Extensions'
+        Remove-Module -Name 'MSOnlineExt'
     }
 }
 task . Clean, Test

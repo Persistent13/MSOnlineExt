@@ -1,5 +1,5 @@
 $param_name = 'TenantId'
-$cmdlets = Get-Command -Module 'MSOnline','MSOnline-Extensions' -ParameterName $param_name
+$cmdlets = Get-Command -Module 'MSOnline','MSOnlineExt' -ParameterName $param_name
 
 $argument_completer = @{
     CommandName = $cmdlets.Name
