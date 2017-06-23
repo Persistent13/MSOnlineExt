@@ -1,2 +1,10 @@
 # See http://www.appveyor.com/docs/appveyor-yml for many more options
 
+# Makes sure at least PS v5 is present
+os: WMF 5
+
+build: false
+
+# Start deployment script
+test_script:
+  - ps: Invoke-Build -Task Deploy
