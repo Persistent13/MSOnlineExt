@@ -1,5 +1,25 @@
 function Set-MsolTenantContext
 {
+<#
+.Synopsis
+    Sets the default ID for the TenantId parameter.
+.DESCRIPTION
+    Long description
+.EXAMPLE
+    Set-MsolTenantContext -TenantId 41a3b096-8205-4a50-8259-8603c7a91d5a
+.INPUTS
+    System.Guid
+
+    The cmdlet takes the TenantId as a Guid.
+.OUTPUTS
+    None
+.NOTES
+    Once the default TenantId is set all auto-completers will be updated to reflect the change.
+.COMPONENT
+    MSOnlineExt
+.FUNCTIONALITY
+    Sets the default ID for the TenantId parameter.
+#>
     [CmdletBinding(SupportsShouldProcess=$false,
                    PositionalBinding=$false,
                    ConfirmImpact='Low')]

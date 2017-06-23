@@ -26,4 +26,4 @@ Export-ModuleMember -Function $public.BaseName
 
 # This code will run when the module is removed and
 # will be sure that the TenantId default is removed
-$MyInvocation.MyCommand.ScriptBlock.Module.OnRemove = { $PSDefaultParameterValues.Remove('*-Msol*:TenantId') }
+$MyInvocation.MyCommand.ScriptBlock.Module.OnRemove = { $global:PSDefaultParameterValues.Remove('*-Msol*:TenantId') }
