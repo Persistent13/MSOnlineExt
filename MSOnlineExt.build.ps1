@@ -4,7 +4,24 @@ task Deploy UpdateManifest, UnloadModule, Test, UnloadModule, LoadModule {
 }
 task Test {
     $test_path = Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'Test'
-    Invoke-Pester $test_path
+    if ($env:APPVEYOR)
+    {
+        $test_file = 'TestResults_{0}_{1}.xml' -f $PSVersionTable.PSVersion.ToString(), (Get-Date -UFormat '%Y%m%d-%H%M%S')
+        $out_file = Join-Path -Path $test_path -ChildPath $test_file
+        Invoke-Pester -Path $test_path -OutputFormat 'NUnitXml' -OutputFile $out_file
+        $upload_params = @{
+            Method = 'Post'
+            UseBasicParsing = $true
+            Uri = 'https://ci.appveyor.com/api/testresults/nunit/{0}' -f $env:APPVEYOR_JOB_ID
+            InFile = $out_file
+        }
+        Invoke-WebRequest @upload_params
+    }
+    else
+    {
+        # Any tests not run from Appveyor
+        Invoke-Pester -Path $test_path
+    }
 }
 task LoadModule {
     if(-not (Get-Module -Name 'MSOnlineExt')){ Import-Module $manifest_path }
@@ -24,6 +41,7 @@ task UpdateManifest {
         Copyright = '(c) {0} Dakota Clark. All rights reserved.' -f (Get-Date).Year
         FileList = $files.Name
         FunctionsToExport = $functions.BaseName
+        ModuleVersion = $env:APPVEYOR_BUILD_VERSION
     }
     Update-ModuleManifest @manifest_params
 }

@@ -12,7 +12,7 @@
 RootModule = 'MSOnlineExt.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.0.0'
+ModuleVersion = '0.0.0.0'<# Updated programatically in build file. #>
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -30,7 +30,7 @@ Author = 'Dakota Clark'
 Copyright = ''<# Updated programatically in build file. #>
 
 # Description of the functionality provided by this module
-Description = 'Enables auto complet for the TenantId parameters in the MSOnline PowerShell module.'
+Description = 'This PowerShell module was made to ease the burden of Azure AD management in single and multi-tenant environments by addressing the gaps found in interactive use.'
 
 # Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '5.0'
