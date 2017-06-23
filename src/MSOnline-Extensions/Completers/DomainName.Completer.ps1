@@ -1,5 +1,5 @@
-$param_name = 'TenantId'
-$cmdlets = Get-Command -Module 'MSOnline','MSOnline-Extensions' -ParameterName $param_name
+$param_name = 'DomainName'
+$cmdlets = Get-Command -Module 'MSOnline' -ParameterName $param_name
 
 $argument_completer = @{
     CommandName = $cmdlets.Name
@@ -7,9 +7,9 @@ $argument_completer = @{
     ScriptBlock = {
         param($command_name, $parameter_name, $word_to_complete, $command_ast, $fake_bound_parameter)
 
-        $item_list = Get-MsolPartnerContract | Where-Object { $PSItem.Name -match $word_to_complete } | ForEach-Object {
-            $completion_text = $PSItem.TenantId
-            $tool_tip = 'The Tenant ID for Office 365 partners.'
+        $item_list = Get-MsolDomain | Where-Object { $PSItem.Name -match $word_to_complete } | ForEach-Object {
+            $completion_text = $PSItem.Name
+            $tool_tip = 'Domains available to the selected tenant.'
             $list_item_text = $PSItem.Name
             $completion_result_type = [System.Management.Automation.CompletionResultType]::ParameterValue
 
