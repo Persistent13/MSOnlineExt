@@ -36,7 +36,7 @@ task UpdateManifest {
     $functions = Get-ChildItem -Path $functions_path -Filter '*.ps1'
     $manifest_params = @{
         Path = $manifest_path
-        Copyright = '(c) {0} Dakota Clark. All rights reserved.' -f (Get-Date).Year
+        Copyright = 'Copyright © {0} Dakota Clark. All rights reserved.' -f (Get-Date).Year
         FunctionsToExport = $functions.BaseName
         ModuleVersion = $env:APPVEYOR_BUILD_VERSION
     }

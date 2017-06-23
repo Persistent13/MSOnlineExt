@@ -11,4 +11,5 @@ test_script:
   - ps: Install-Module -Name 'InvokeBuild' -RequiredVersion 3.5.1 -Force
   - ps: Install-Module -Name 'PSDeploy' -RequiredVersion 0.1.27 -Force
   - ps: Install-Module -Name 'MSOnline' -RequiredVersion 1.1.166.0 -Force
+  - ps: Install-Module -Name 'Pester' -RequiredVersion 4.0.2 -Force
   - ps: Invoke-Build -Task Deploy
