@@ -10,7 +10,7 @@ function Set-MsolTenantContext
                    ValueFromPipelineByPropertyName=$false,
                    ValueFromRemainingArguments=$false,
                    Position=0)]
-        [Guid]$TenantId
+        [Guid] $TenantId
     )
 
     Begin
@@ -21,9 +21,9 @@ function Set-MsolTenantContext
     {
         try
         {
-            $PSDefaultParameterValues.Add('*-Msol*:TenantId',$TenantId)
-
-            $completers = Get-ChildItem -Path "$PSScriptRoot\..\Completers\" -Filter '*.ps1' -ErrorAction SilentlyContinue
+            $PSDefaultParameterValues['*-Msol*:TenantId'] = $TenantId
+            $completers_path = Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -ChildPath 'Completers'
+            $completers = Get-ChildItem -Path $completers_path -Filter '*.Completer.ps1' -ErrorAction SilentlyContinue
             foreach($item in $completers)
             {
                 $message = 'Re-importing Completer: {0}' -f $item.FullName

@@ -1,4 +1,5 @@
-$completers = Get-ChildItem -Path "$PSScriptRoot\Completers\" -Filter '*.ps1' -ErrorAction SilentlyContinue
+$completers_path = Join-Path -Path $PSScriptRoot -ChildPath 'Completers'
+$completers = Get-ChildItem -Path $completers_path -Filter '*.Completer.ps1'
 
 foreach($item in $completers)
 {

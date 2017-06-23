@@ -13,7 +13,8 @@ task Clean, Test, Deploy {
     $deploy.Invoke()
 }
 task Test {
-    Invoke-Pester $PSScriptRoot\Test
+    $test_path = Join-Path -Path $PSScriptRoot -ChildPath 'Test'
+    Invoke-Pester $test_path
 }
 task Clean {
     if(Get-Module -Name 'MSOnline-Extensions')
