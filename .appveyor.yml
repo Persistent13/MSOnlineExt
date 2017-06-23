@@ -7,8 +7,7 @@ build: false
 
 # Start deployment script
 test_script:
-  - ps: |
-    Install-PackageProvider -Name 'Nuget' -ForceBootstrap
-    Install-Module -Name 'InvokeBuild' -RequiredVersion 3.5.1
-    Install-Module -Name 'PSDeploy' -RequiredVersion 0.1.27
-    Invoke-Build -Task 'Deploy'
+  - ps: Install-PackageProvider -Name 'Nuget' -ForceBootstrap
+  - ps: Install-Module -Name 'InvokeBuild' -RequiredVersion 3.5.1
+  - ps: Install-Module -Name 'PSDeploy' -RequiredVersion 0.1.27
+  - ps: Invoke-Build -Task 'Deploy'
