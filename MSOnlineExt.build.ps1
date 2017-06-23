@@ -12,6 +12,7 @@ task Test {
         $upload_params = @{
             Method = 'Post'
             UseBasicParsing = $true
+            ContentType = 'multipart/form-data'
             Uri = 'https://ci.appveyor.com/api/testresults/nunit/{0}' -f $env:APPVEYOR_JOB_ID
             InFile = $out_file
         }
