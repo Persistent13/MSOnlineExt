@@ -13,7 +13,7 @@ $argument_completer = @{
             $list_item_text = $PSItem.DisplayName
             $completion_result_type = [System.Management.Automation.CompletionResultType]::ParameterValue
 
-            New-Object [System.Management.Automation.CompletionResult]($completion_text,$list_item_text,$completion_result_type,$tool_tip)
+            [System.Management.Automation.CompletionResult]::new($completion_text,$list_item_text,$completion_result_type,$tool_tip)
         }
 
         return $item_list
