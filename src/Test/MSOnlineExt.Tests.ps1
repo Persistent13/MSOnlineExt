@@ -53,12 +53,14 @@ InModuleScope MSOnlineExt {
         }
     }
     Describe 'Set-MsolTenantContext' {
-        It 'Sets the correct Guid' {
-            Set-MsolTenantContext -TenantId $global:test_guid
-            $global:PSDefaultParameterValues['*-Msol*:TenantId'] | Should Be $global:test_guid
-        }
-        It 'Throws an error with bad parameter' {
-            { Set-MsolTenantContext -TenantId 'BAD IDEA' } | Should Throw
+        Context 'Set-MsolTenantContext has NOT been run' {
+            It 'Sets the correct Guid' {
+                Set-MsolTenantContext -TenantId $global:test_guid
+                $global:PSDefaultParameterValues['*-Msol*:TenantId'] | Should Be $global:test_guid
+            }
+            It 'Throws an error with bad parameter' {
+                { Set-MsolTenantContext -TenantId 'BAD IDEA' } | Should Throw
+            }
         }
     }
 }
