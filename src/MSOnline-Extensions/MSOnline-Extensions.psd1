@@ -33,7 +33,7 @@ Copyright = '(c) 2017 Dakota Clark. All rights reserved.'
 Description = 'Enables auto complet for the TenantId parameters in the MSOnline PowerShell module.'
 
 # Minimum version of the Windows PowerShell engine required by this module
-PowerShellVersion = '3.0'
+PowerShellVersion = '5.0'
 
 # Name of the Windows PowerShell host required by this module
 # PowerShellHostName = ''
@@ -88,7 +88,7 @@ AliasesToExport = @()
 
 # List of all files packaged with this module
 FileList = @('MSOnline-Extensions.psd1','MSOnline-Extensions.psm1','TenantId.Completer.ps1','Set-MsolTenantContext.ps1','Remove-MsolTenantContext.ps1','Get-MsolTenantContext.ps1',
-             'UserPrincipalName.Completer.ps1')
+             'UserPrincipalName.Completer.ps1','AppPrincipalId.Completer.ps1','DeviceId.Completer.ps1','DomainName.Completer.ps1','Feature.Completers.ps1','SubscriptionId.Completer.ps1')
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
