@@ -1,6 +1,6 @@
 task Deploy UpdateManifest, UnloadModule, Test, UnloadModule, LoadModule {
     $deploy_root = Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'Deploy'
-    Invoke-PSDeploy -DeploymentRoot $deploy_root
+    Invoke-PSDeploy -Path $deploy_root
 }
 task Test {
     $test_path = Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'Test'
