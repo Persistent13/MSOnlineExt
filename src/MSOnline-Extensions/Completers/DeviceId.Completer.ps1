@@ -1,4 +1,4 @@
-$param_name = 'UserPrincipalName'
+$param_name = 'DeviceId'
 $cmdlets = Get-Command -Module 'MSOnline' -ParameterName $param_name
 
 $argument_completer = @{
@@ -7,9 +7,9 @@ $argument_completer = @{
     ScriptBlock = {
         param($command_name, $parameter_name, $word_to_complete, $command_ast, $fake_bound_parameter)
 
-        $item_list = Get-MsolUser | Where-Object { $PSItem.DisplayName -match $word_to_complete } | ForEach-Object {
-            $completion_text = $PSItem.UserPrincipalName
-            $tool_tip = 'The name of users in the selected tenant.'
+        $item_list = Get-MsolDevice -All | Where-Object { $PSItem.DisplayName -match $word_to_complete } | ForEach-Object {
+            $completion_text = $PSItem.DeviceId
+            $tool_tip = 'The device ID for all devices in the selected tenant.'
             $list_item_text = $PSItem.DisplayName
             $completion_result_type = [System.Management.Automation.CompletionResultType]::ParameterValue
 
