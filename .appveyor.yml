@@ -10,4 +10,4 @@ test_script:
   - ps: Install-PackageProvider -Name 'Nuget' -ForceBootstrap -Force
   - ps: Install-Module -Name 'InvokeBuild' -RequiredVersion 3.5.1 -Force
   - ps: Install-Module -Name 'PSDeploy' -RequiredVersion 0.1.27 -Force
-  - ps: Invoke-Build -Task 'Deploy'
+  - ps: Invoke-Build -Task Deploy
