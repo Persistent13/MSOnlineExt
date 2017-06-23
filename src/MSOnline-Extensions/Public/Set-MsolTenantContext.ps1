@@ -21,7 +21,7 @@ function Set-MsolTenantContext
     {
         try
         {
-            $PSDefaultParameterValues['*-Msol*:TenantId'] = $TenantId
+            $global:PSDefaultParameterValues['*-Msol*:TenantId'] = $TenantId
             $completers_path = Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -ChildPath 'Completers'
             $completers = Get-ChildItem -Path $completers_path -Filter '*.Completer.ps1' -ErrorAction SilentlyContinue
             foreach($item in $completers)
