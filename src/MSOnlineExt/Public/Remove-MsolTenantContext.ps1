@@ -44,14 +44,7 @@ function Remove-MsolTenantContext
     {
         if($PSCmdlet.ShouldProcess($target,'Remove default tenant ID.'))
         {
-            try
-            {
-                $global:PSDefaultParameterValues.Remove('*-Msol*:TenantId')
-            }
-            catch
-            {
-                $PSCmdlet.ThrowTerminatingError($PSItem)
-            }
+            $global:PSDefaultParameterValues.Remove('*-Msol*:TenantId')
         }
     }
 

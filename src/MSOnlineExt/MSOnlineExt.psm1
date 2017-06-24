@@ -1,9 +1,12 @@
+# Get all module file paths.
 $completers_path = Join-Path -Path $PSScriptRoot -ChildPath 'Completers'
 $public_path = Join-Path -Path $PSScriptRoot -ChildPath 'Public'
 
+# Get all module files.
 $public = @( Get-ChildItem -Path $public_path -Filter '*.ps1' )
 $completers = Get-ChildItem -Path $completers_path -Filter '*.Completer.ps1'
 
+# Load all completers.
 foreach($item in $completers)
 {
     $message = 'Importing Completer: {0}' -f $item.FullName
@@ -11,6 +14,7 @@ foreach($item in $completers)
     & $item.FullName
 }
 
+# Load all functions.
 foreach($cmdlet in $public)
 {
     try

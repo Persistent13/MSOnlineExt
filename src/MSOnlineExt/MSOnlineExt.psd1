@@ -12,7 +12,7 @@
 RootModule = 'MSOnlineExt.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.0.0'
+ModuleVersion = '0.0.0.0'<# Updated programatically in build file. #>
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -27,10 +27,10 @@ Author = 'Dakota Clark'
 # CompanyName = 'Unknown'
 
 # Copyright statement for this module
-Copyright = '(c) 2017 Dakota Clark. All rights reserved.'
+Copyright = ''<# Updated programatically in build file. #>
 
 # Description of the functionality provided by this module
-Description = 'Enables auto complet for the TenantId parameters in the MSOnline PowerShell module.'
+Description = 'This PowerShell module was made to ease the burden of Azure AD management in single and multi-tenant environments by addressing the gaps found in interactive use.'
 
 # Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '5.0'
@@ -69,7 +69,7 @@ RequiredModules = @('MSOnline')
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('Set-MsolTenantContext','Remove-MsolTenantContext','Get-MsolTenantContext')
+FunctionsToExport = @(<# Updated programatically in build file. #>)
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -87,8 +87,7 @@ AliasesToExport = @()
 # ModuleList = @()
 
 # List of all files packaged with this module
-FileList = @('MSOnlineExt.psd1','MSOnlineExt.psm1','TenantId.Completer.ps1','Set-MsolTenantContext.ps1','Remove-MsolTenantContext.ps1','Get-MsolTenantContext.ps1',
-             'UserPrincipalName.Completer.ps1','AppPrincipalId.Completer.ps1','DeviceId.Completer.ps1','DomainName.Completer.ps1','Feature.Completers.ps1','SubscriptionId.Completer.ps1')
+FileList = @(<# Updated programatically in build file. #>)
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
@@ -96,13 +95,13 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @('Office','365','MSOnline','Assistence')
+        Tags = @('Office','365','MSOnline','Assistance','MSOnlineExt','Azure','AD','Active','Directory')
 
         # A URL to the license for this module.
-        LicenseUri = ''
+        LicenseUri = 'https://github.com/Persistent13/MSOnlineExt/blob/master/LICENSE.md'
 
         # A URL to the main website for this project.
-        ProjectUri = ''
+        ProjectUri = 'https://github.com/Persistent13/MSOnlineExt'
 
         # A URL to an icon representing this module.
         # IconUri = ''
