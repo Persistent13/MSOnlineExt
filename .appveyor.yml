@@ -1,15 +1,34 @@
 # See http://www.appveyor.com/docs/appveyor-yml for many more options
 
-# Makes sure at least PS v5 is present
-os: WMF 5
+version: 1.0.{build}
 
-build: false
+# No need for us to increment on pull requests, just validate
+pull_requests:
+  do_not_increment_build_number: true
 
-# Start deployment script
+# We don't build tags
+skip_tags: true
+
+# Ensures that PS v5 will be present
+image: WMF 5
+
+# No need to publish artifacts either
+nuget:
+  disable_publish_on_pr: true
+
+build: off
+
+# Use this to install any prerequisites
 test_script:
-  - ps: Install-PackageProvider -Name 'Nuget' -ForceBootstrap -Force
-  - ps: Install-Module -Name 'InvokeBuild' -RequiredVersion 3.5.1 -Force
-  - ps: Install-Module -Name 'PSDeploy' -RequiredVersion 0.1.27 -Force
-  - ps: Install-Module -Name 'MSOnline' -RequiredVersion 1.1.166.0 -Force
-  - ps: Install-Module -Name 'Pester' -RequiredVersion 4.0.2 -Force
-  - ps: Invoke-Build -Task Deploy
+- ps: >-
+    Install-PackageProvider -Name 'Nuget' -ForceBootstrap -Force
+
+    Install-Module -Name 'InvokeBuild' -RequiredVersion 3.5.1 -Force
+
+    Install-Module -Name 'PSDeploy' -RequiredVersion 0.1.27 -Force
+
+    Install-Module -Name 'MSOnline' -RequiredVersion 1.1.166.0 -Force
+
+    Install-Module -Name 'Pester' -RequiredVersion 4.0.2 -Force
+
+    Invoke-Build -Task Deploy
