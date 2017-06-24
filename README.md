@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/h0j9auihbwfox3f0/branch/master?svg=true)](https://ci.appveyor.com/project/Persistent13/msonlineext/branch/master)
+
 # MSOnlineExt
 
 This PowerShell module was made to ease the burden of Azure AD management in single and multi-tenant environments by addressing the gaps found in interactive use.
