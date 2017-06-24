@@ -1,6 +1,6 @@
 task Deploy UpdateManifest, UnloadModule, Test, UnloadModule, LoadModule, {
     $deploy_root = Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'Deploy'
-    Invoke-PSDeploy -Path $deploy_root
+    Invoke-PSDeploy -Path $deploy_root -Force
 }
 task Test {
     $test_path = Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'Test'
@@ -9,14 +9,6 @@ task Test {
         $test_file = 'TestResults_{0}_{1}.xml' -f $PSVersionTable.PSVersion.ToString(), (Get-Date -UFormat '%Y%m%d-%H%M%S')
         $out_file = Join-Path -Path $test_path -ChildPath $test_file
         Invoke-Pester -Path $test_path -OutputFormat 'NUnitXml' -OutputFile $out_file
-        # $upload_params = @{
-        #     Method = 'Post'
-        #     UseBasicParsing = $true
-        #     ContentType = 'multipart/form-data'
-        #     Uri = 'https://ci.appveyor.com/api/testresults/nunit/{0}' -f $env:APPVEYOR_JOB_ID
-        #     InFile = $out_file
-        # }
-        # Invoke-WebRequest @upload_params
         $wc = [System.Net.WebClient]::new()
         $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)",$out_file)
     }
@@ -38,6 +30,7 @@ task UpdateManifest {
 
     $functions = Get-ChildItem -Path $functions_path -Filter '*.ps1'
     $manifest_params = @{
+        CompanyName = ''
         Path = $manifest_path
         Copyright = 'Copyright © {0} Dakota Clark. All rights reserved.' -f (Get-Date).Year
         FunctionsToExport = $functions.BaseName
