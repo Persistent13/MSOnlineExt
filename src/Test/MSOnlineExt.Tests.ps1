@@ -2,11 +2,6 @@ $global:test_guid = New-Guid
 $global:test_guid_empty = [guid]::Empty
 $global:test_guid_static = '230a7523-6117-4f5f-9209-7fb5807416f1'
 
-$module_path = Join-Path -Path ( Join-Path -Path ( Split-Path -Path $PSScriptRoot -Parent ) -ChildPath 'MSOnlineExt' ) -ChildPath 'MSOnlineExt.psd1'
-
-Import-Module 'MSOnline'
-Import-Module $module_path
-
 InModuleScope MSOnlineExt {
     Describe 'Get-MsolTenantContext' {
         Context 'Set-MsolTenantContext has been run' {
