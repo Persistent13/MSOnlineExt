@@ -20,6 +20,7 @@ task Test {
     }
 }
 task LoadModule {
+    $manifest_path = Join-Path -Path ( Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'MSOnlineExt' ) -ChildPath 'MSOnlineExt.psd1'
     if (-not (Get-Module -Name 'MSOnlineExt')){ Import-Module $manifest_path }
 }
 task UnloadModule {
