@@ -58,4 +58,13 @@ InModuleScope MSOnlineExt {
             }
         }
     }
+    Describe '$global:PSDefaultParameterValues[*-Msol*:TenantId] is removed after module unload' {
+        Context 'Remove-Module' {
+            It 'Removes the default parameter value on unload' {
+                Set-MsolTenantContext -TenantId $global:test_guid
+                Remove-Module 'MSOnlineExt'
+                $global:PSDefaultParameterValues['*-Msol*:TenantId'] | Should Be $null
+            }
+        }
+    }
 }
