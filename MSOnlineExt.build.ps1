@@ -1,6 +1,6 @@
 task Deploy UpdateManifest, UnloadModule, Test, UnloadModule, LoadModule, {
     $deploy_root = Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'Deploy'
-    Invoke-PSDeploy -Path $deploy_root
+    # Need to pack nuget package here.
 }
 task Test {
     $test_path = Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'Test'
