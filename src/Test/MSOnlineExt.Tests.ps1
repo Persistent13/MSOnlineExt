@@ -2,11 +2,6 @@ $global:test_guid = New-Guid
 $global:test_guid_empty = [guid]::Empty
 $global:test_guid_static = '230a7523-6117-4f5f-9209-7fb5807416f1'
 
-$module_path = Join-Path -Path ( Join-Path -Path ( Split-Path -Path $PSScriptRoot -Parent ) -ChildPath 'MSOnlineExt' ) -ChildPath 'MSOnlineExt.psd1'
-
-Import-Module 'MSOnline'
-Import-Module $module_path
-
 InModuleScope MSOnlineExt {
     Describe 'Get-MsolTenantContext' {
         Context 'Set-MsolTenantContext has been run' {
@@ -53,12 +48,23 @@ InModuleScope MSOnlineExt {
         }
     }
     Describe 'Set-MsolTenantContext' {
-        It 'Sets the correct Guid' {
-            Set-MsolTenantContext -TenantId $global:test_guid
-            $global:PSDefaultParameterValues['*-Msol*:TenantId'] | Should Be $global:test_guid
+        Context 'Set-MsolTenantContext has NOT been run' {
+            It 'Sets the correct Guid' {
+                Set-MsolTenantContext -TenantId $global:test_guid
+                $global:PSDefaultParameterValues['*-Msol*:TenantId'] | Should Be $global:test_guid
+            }
+            It 'Throws an error with bad parameter' {
+                { Set-MsolTenantContext -TenantId 'BAD IDEA' } | Should Throw
+            }
         }
-        It 'Throws an error with bad parameter' {
-            { Set-MsolTenantContext -TenantId 'BAD IDEA' } | Should Throw
+    }
+    Describe '$global:PSDefaultParameterValues[*-Msol*:TenantId] is removed after module unload' {
+        Context 'Remove-Module' {
+            It 'Removes the default parameter value on unload' {
+                Set-MsolTenantContext -TenantId $global:test_guid
+                Remove-Module 'MSOnlineExt'
+                $global:PSDefaultParameterValues['*-Msol*:TenantId'] | Should Be $null
+            }
         }
     }
 }
