@@ -4,18 +4,16 @@ try
     $script:module_config_path = Join-Path -Path $PSScriptRoot -ChildPath 'MSOnlineExt.config.json'
     $script:module_config = Get-Content -Path $script:module_config_path -Raw | ConvertFrom-Json
 
-    if($script:module_config.ApplicationInsights.TelemetryPrompt){ Write-TelemetryPrompt }
-
-    $app_client_settings = [Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration]::new()
+    $app_settings = [Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration]::new()
     # If disabled no telemetry will be sent
-    $app_client_settings.DisableTelemetry = $script:module_config.ApplicationInsights.TelemetryDisable
-    $app_client_settings.InstrumentationKey = ''
+    $app_settings.DisableTelemetry = $script:module_config.ApplicationInsights.TelemetryDisable
 
     # Load application insights
-    $script:app = [Microsoft.ApplicationInsights.TelemetryClient]::new($app_client_settings)
+    $script:app = [Microsoft.ApplicationInsights.TelemetryClient]::new($app_settings)
     # Gather session data
+    $script:app.InstrumentationKey = 'c7587407-2b8a-4ebe-8c9f-3586e05f302d'
     $script:app.TrackEvent('Execution Context: {0}' -f $ExecutionContext.Host.Name)
-    $script:app.TrackEvent('PowerShell Version: {0}' -f $PSVersionTable.PSVersion.Major)
+    $script:app.TrackEvent('PowerShell Version: {0}' -f $PSVersionTable.PSVersion.ToString())
     $script:app.TrackEvent('PowerShell Edition: {0}' -f $PSEdition)
     $script:app.TrackEvent('Is 64 Bit Operating System: {0}' -f [System.Environment]::Is64BitOperatingSystem)
     $script:app.TrackEvent('Is 64 Bit Process: {0}' -f [System.Environment]::Is64BitProcess)
@@ -56,6 +54,8 @@ foreach($cmdlet in @($public + $private))
         Write-Error -Message "Failed to import cmdlet $($cmdlet.FullName): $PSItem"
     }
 }
+
+if($script:module_config.ApplicationInsights.TelemetryPrompt){ Write-TelemetryPrompt }
 
 # Present public functions to user
 Export-ModuleMember -Function $public.BaseName

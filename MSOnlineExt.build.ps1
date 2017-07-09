@@ -18,7 +18,13 @@ task Test {
 }
 task LoadModule {
     $manifest_path = Join-Path -Path ( Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'MSOnlineExt' ) -ChildPath 'MSOnlineExt.psd1'
-    if (-not (Get-Module -Name 'MSOnlineExt')){ Import-Module $manifest_path }
+    if (-not (Get-Module -Name 'MSOnlineExt'))
+    {
+        # Disable telmetry prompt on module import during tests
+        $global:WarningPreference = 'SilentlyContinue'
+        Import-Module $manifest_path
+        $global:WarningPreference = 'Continue'
+    }
 }
 task UnloadModule {
     if (Get-Module -Name 'MSOnlineExt'){ Remove-Module -Name 'MSOnlineExt' }
