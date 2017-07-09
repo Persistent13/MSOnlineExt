@@ -1,4 +1,14 @@
-task Deploy UpdateManifest, UnloadModule, LoadModule, Test, UnloadModule
+task Deploy UpdateManifest, UnloadModule, LoadModule, Test, UnloadModule, {
+    if($env:APPVEYOR)
+    {
+        $deploy_path = Join-Path -Path ( Join-Path -Path ( Split-Path -Path $PSScriptRoot ) -ChildPath 'src' ) -ChildPath 'Deploy'
+        Invoke-PSDeploy -Path $deploy_path
+    }
+    else
+    {
+        Write-Warning -Message 'The command "Invoke-Build -Task Deploy" should only be used during CI.'
+    }
+}
 task Test {
     $test_path = Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'Test'
     if ($env:APPVEYOR)

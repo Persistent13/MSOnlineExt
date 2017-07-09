@@ -27,6 +27,8 @@ test_script:
 
     Install-Module -Name 'MSOnline' -MinimumVersion 1.1.166.0 -Force
 
+    Install-Module -Name 'PSDeploy' -MinimumVersion 0.1.27 -Force
+
     Install-Module -Name 'Pester' -MinimumVersion 4.0.2 -Force
 
     Invoke-Build -Task Deploy
