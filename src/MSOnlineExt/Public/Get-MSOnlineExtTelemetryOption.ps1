@@ -15,13 +15,15 @@ function Get-MSOnlineExtTelemetryOption
 .INPUTS
     None
 .OUTPUTS
-    None
+    MSOnlineExt.TelemetryClientSetting
+
+    This cmdlet will return an object that details the current state of telemtry gathering.
 .NOTES
     Once the participation setting is set the telemetry warning will no longer be run.
 .COMPONENT
     MSOnlineExt
 .FUNCTIONALITY
-    Sets the default ID for the TenantId parameter.
+    Gets the telemetry options for the module.
 #>
     [CmdletBinding(SupportsShouldProcess=$false,
                    PositionalBinding=$false,

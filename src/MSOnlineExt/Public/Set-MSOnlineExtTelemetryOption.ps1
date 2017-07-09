@@ -28,7 +28,7 @@ function Set-MSOnlineExtTelemetryOption
 .COMPONENT
     MSOnlineExt
 .FUNCTIONALITY
-    Sets the default ID for the TenantId parameter.
+    Sets the telemetry options for the module.
 #>
     [CmdletBinding(SupportsShouldProcess=$false,
                    PositionalBinding=$false,
@@ -40,6 +40,7 @@ function Set-MSOnlineExtTelemetryOption
                    ValueFromPipelineByPropertyName=$false,
                    ValueFromRemainingArguments=$false,
                    Position=0)]
+        [ValidateSet($true,$false)]
         [Bool] $Participate
     )
 
