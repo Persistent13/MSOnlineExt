@@ -2,7 +2,7 @@ task Deploy UpdateManifest, UnloadModule, LoadModule, Test, UnloadModule, {
     if($env:APPVEYOR)
     {
         $deploy_path = Join-Path -Path ( Join-Path -Path ( Split-Path -Path $PSScriptRoot ) -ChildPath 'src' ) -ChildPath 'Deploy'
-        Invoke-PSDeploy -Path $deploy_path -Recurse $true
+        Invoke-PSDeploy -Path $deploy_path -Recurse $true -Force
     }
     else
     {
