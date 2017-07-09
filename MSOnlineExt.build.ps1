@@ -35,6 +35,7 @@ task UpdateManifest {
     $module_root = Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'MSOnlineExt'
     Push-Location
     Set-Location -Path $module_root
+    $dll = Get-ChildItem -File -Recurse -Filter '*.dll' | Resolve-Path -Relative
     $file_list = Get-ChildItem -File -Recurse | Resolve-Path -Relative | ForEach-Object { $PSItem.Substring(2) }
     Pop-Location
 
@@ -44,6 +45,7 @@ task UpdateManifest {
         Copyright = 'Copyright © {0} Dakota Clark. All rights reserved.' -f (Get-Date).Year
         FunctionsToExport = $functions.BaseName
         ModuleVersion = $env:APPVEYOR_BUILD_VERSION
+        RequiredAssemblies = $dll
         FileList = $file_list
     }
     Update-ModuleManifest @manifest_params
