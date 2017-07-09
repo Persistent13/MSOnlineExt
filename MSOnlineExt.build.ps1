@@ -51,6 +51,7 @@ task UpdateManifest {
 
     $functions = Get-ChildItem -Path $functions_path -Filter '*.ps1'
     $manifest_params = @{
+        CompanyName = 'Dakota Clark'
         Path = $manifest_path
         Copyright = 'Copyright © {0} Dakota Clark. All rights reserved.' -f (Get-Date).Year
         FunctionsToExport = $functions.BaseName
