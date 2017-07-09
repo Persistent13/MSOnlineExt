@@ -35,6 +35,9 @@ function Set-MsolTenantContext
 
     Begin
     {
+        $ErrorActionPreference = 'Stop'
+        $script:app.TrackEvent('Ran function: {0}' -f $MyInvocation.MyCommand.Name)
+        if($script:module_config.ApplicationInsights.TelemetryPrompt){ Write-TelemetryPrompt }
     }
 
     Process
@@ -43,7 +46,7 @@ function Set-MsolTenantContext
         {
             $global:PSDefaultParameterValues['*-Msol*:TenantId'] = $TenantId
             $completers_path = Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -ChildPath 'Completers'
-            $completers = Get-ChildItem -Path $completers_path -Filter '*.Completer.ps1' -ErrorAction SilentlyContinue
+            $completers = Get-ChildItem -Path $completers_path -Filter '*.Completer.ps1'
             foreach($item in $completers)
             {
                 $message = 'Re-importing Completer: {0}' -f $item.FullName
@@ -53,7 +56,12 @@ function Set-MsolTenantContext
         }
         catch
         {
+            $script:app.TrackException($PSItem)
             $PSCmdlet.ThrowTerminatingError($PSItem)
+        }
+        finally
+        {
+            $script:app.Flush()
         }
     }
 

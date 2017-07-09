@@ -29,6 +29,9 @@ function Remove-MsolTenantContext
 
     Begin
     {
+        $script:app.TrackEvent('Ran function: {0}' -f $MyInvocation.MyCommand.Name)
+        if($script:module_config.ApplicationInsights.TelemetryPrompt){ Write-TelemetryPrompt }
+
         if($global:PSDefaultParameterValues['*-Msol*:TenantId'] -eq $null)
         {
             Write-Verbose -Message 'Default TenantId has not been set. Please run Set-MsolTenantContext.'
@@ -42,9 +45,20 @@ function Remove-MsolTenantContext
 
     Process
     {
-        if($PSCmdlet.ShouldProcess($target,'Remove default tenant ID.'))
+        try
         {
-            $global:PSDefaultParameterValues.Remove('*-Msol*:TenantId')
+            if($PSCmdlet.ShouldProcess($target,'Remove default tenant ID.'))
+            {
+                $global:PSDefaultParameterValues.Remove('*-Msol*:TenantId')
+            }
+        }
+        catch
+        {
+            $PSCmdlet.ThrowTerminatingError($PSItem)
+        }
+        finally
+        {
+            $script:app.Flush()
         }
     }
 

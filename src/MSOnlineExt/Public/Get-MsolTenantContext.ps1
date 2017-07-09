@@ -46,19 +46,32 @@ function Get-MsolTenantContext
 
     Begin
     {
+        $script:app.TrackEvent('Ran function: {0}' -f $MyInvocation.MyCommand.Name)
+        if($script:module_config.ApplicationInsights.TelemetryPrompt){ Write-TelemetryPrompt }
     }
 
     Process
     {
-        if($global:PSDefaultParameterValues['*-Msol*:TenantId'] -eq $null)
+        try
         {
-            Write-Verbose -Message 'Default TenantId has not been set. Please run Set-MsolTenantContext.'
-            [guid]$target = '00000000-0000-0000-0000-000000000000'
-            return $target
+            if($global:PSDefaultParameterValues['*-Msol*:TenantId'] -eq $null)
+            {
+                Write-Verbose -Message 'Default TenantId has not been set. Please run Set-MsolTenantContext.'
+                [guid]$target = '00000000-0000-0000-0000-000000000000'
+                return $target
+            }
+            else
+            {
+                return $global:PSDefaultParameterValues['*-Msol*:TenantId']
+            }
         }
-        else
+        catch
         {
-            return $global:PSDefaultParameterValues['*-Msol*:TenantId']
+            $PSCmdlet.ThrowTerminatingError($PSItem)
+        }
+        finally
+        {
+            $script:app.Flush()
         }
     }
 
