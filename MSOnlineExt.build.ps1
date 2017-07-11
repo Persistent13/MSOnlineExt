@@ -28,10 +28,10 @@ task Test {
 }
 task LoadModule {
     $manifest_path = Join-Path -Path ( Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'MSOnlineExt' ) -ChildPath 'MSOnlineExt.psd1'
-    $required_dlls = 'Microsoft.ApplicationInsights'
-    if(-not ([appdomain]::CurrentDomain.GetAssemblies().FullName -match $required_dlls))
+    if(-not ([appdomain]::CurrentDomain.GetAssemblies().FullName -match 'Microsoft.ApplicationInsights') -and -not $env:APPVEYOR)
     {
-        Add-Type -Path ( Join-Path -Path ( Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'Assembly' ) -ChildPath 'Microsoft.ApplicationInsights.dll' )
+        $dll = Join-Path -Path ( Join-Path -Path ( Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'MSOnlineExt' ) -ChildPath 'Assembly' ) -ChildPath 'Microsoft.ApplicationInsights.dll'
+        Add-Type -Path $dll
     }
     if (-not (Get-Module -Name 'MSOnlineExt'))
     {
