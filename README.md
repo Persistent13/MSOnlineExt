@@ -1,4 +1,4 @@
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/persistent13/MSOnlineExt?branch=master&retina=true)](https://ci.appveyor.com/api/projects/status/github/persistent13/MSOnlineExt?branch=master&retina=true)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/persistent13/MSOnlineExt?branch=master&retina=true)](https://ci.appveyor.com/project/Persistent13/msonlineext)
 
 # MSOnlineExt
 
