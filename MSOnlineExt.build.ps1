@@ -28,6 +28,11 @@ task Test {
 }
 task LoadModule {
     $manifest_path = Join-Path -Path ( Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'MSOnlineExt' ) -ChildPath 'MSOnlineExt.psd1'
+    $required_dlls = 'Microsoft.ApplicationInsights'
+    if(-not ([appdomain]::CurrentDomain.GetAssemblies().FullName -match $required_dlls))
+    {
+        Add-Type -Path ( Join-Path -Path ( Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'Assembly' ) -ChildPath 'Microsoft.ApplicationInsights.dll' )
+    }
     if (-not (Get-Module -Name 'MSOnlineExt'))
     {
         # Disable telmetry prompt on module import during tests

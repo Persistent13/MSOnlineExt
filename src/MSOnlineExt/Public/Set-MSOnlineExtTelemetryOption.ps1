@@ -40,8 +40,8 @@ function Set-MSOnlineExtTelemetryOption
                    ValueFromPipelineByPropertyName=$false,
                    ValueFromRemainingArguments=$false,
                    Position=0)]
-        [ValidateSet($true,$false)]
-        [Bool] $Participate
+        [ValidateSet('Yes','No')]
+        [String] $Participate
     )
 
     Begin
@@ -54,9 +54,10 @@ function Set-MSOnlineExtTelemetryOption
     {
         try
         {
-            # -Participate $true will enable telemetry
-            # -Participate $false will disable telemetry
-            $script:module_config.ApplicationInsights.TelemetryDisable = -not $Participate
+            # -Participate 'Yes' will enable telemetry
+            if($Participate -eq 'Yes'){ $script:module_config.ApplicationInsights.TelemetryDisable = $false }
+            # -Participate 'No' will disable telemetry
+            if($Participate -eq 'No'){ $script:module_config.ApplicationInsights.TelemetryDisable = $true }
             $script:module_config.ApplicationInsights.TelemetryPrompt = $false
             $script:module_config | ConvertTo-Json -Compress | Set-Content -Path $script:module_config_path
         }

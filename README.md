@@ -60,7 +60,7 @@ This module provides auto completion for the following `MSOnline` parameters.
 
 In order to assist with the development of this module telemetry the option to send telemetry is available. By default no telemetry is gathered.
 
-To enable telemetry run the command `Set-MSOnlineExtTelemetryOption -Participate $true` and then reload the module; to disable telemetry run the command `Set-MSOnlineExtTelemetryOption -Participate $false` and then reload the module.
+To enable telemetry run the command `Set-MSOnlineExtTelemetryOption -Participate 'Yes'` and then reload the module; to disable telemetry run the command `Set-MSOnlineExtTelemetryOption -Participate 'No'` and then reload the module.
 
 Data gathered includes:
 
