@@ -87,14 +87,14 @@ InModuleScope MSOnlineExt {
         Context 'Set-MSOnlineExtTelemetryOption has been run' {
             Mock Set-Content { $PSItem | Out-File -FilePath 'TestDrive:\MSOnlineExt.config.json' } -Verifiable
             It 'Returns the expected telemetry settings after disabling them' {
-                Set-MSOnlineExtTelemetryOption -Participate $false
+                Set-MSOnlineExtTelemetryOption -Participate 'No'
                 Assert-VerifiableMocks
                 $telemetry_disable = Get-MSOnlineExtTelemetryOption
                 $telemetry_disable.TelemetryDisabled | Should Be $true
                 $telemetry_disable.TelemetryDisabledInConfig | Should Be $true
             }
             It 'Returns the expected telemetry settings after enabling them' {
-                Set-MSOnlineExtTelemetryOption -Participate $true
+                Set-MSOnlineExtTelemetryOption -Participate 'Yes'
                 Assert-VerifiableMocks
                 $telemetry_enable = Get-MSOnlineExtTelemetryOption
                 $telemetry_enable.TelemetryDisabled | Should Be $true
