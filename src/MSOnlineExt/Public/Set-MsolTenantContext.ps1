@@ -4,9 +4,15 @@ function Set-MsolTenantContext
 .Synopsis
     Sets the default ID for the TenantId parameter.
 .DESCRIPTION
-    Long description
+    Sets the default ID for the TenantId parameter.
+
+    This is done by populating the global default parameter variable.
 .EXAMPLE
     Set-MsolTenantContext -TenantId 41a3b096-8205-4a50-8259-8603c7a91d5a
+
+    The command above will set the default for all TenantId parameters in the MSOnline module and register all arguments completers.
+
+    If this command is not run autocompletion will not work.
 .INPUTS
     System.Guid
 
