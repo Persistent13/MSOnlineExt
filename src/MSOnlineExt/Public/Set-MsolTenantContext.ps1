@@ -51,12 +51,12 @@ function Set-MsolTenantContext
         try
         {
             $global:PSDefaultParameterValues['*-Msol*:TenantId'] = $TenantId
-            $completers_path = Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -ChildPath 'Completers'
-            $completers = Get-ChildItem -Path $completers_path -Filter '*.Completer.ps1'
+            $completers_path = Microsoft.PowerShell.Management\Join-Path -Path (Microsoft.PowerShell.Management\Split-Path -Path $PSScriptRoot -Parent) -ChildPath 'Completers'
+            $completers = Microsoft.PowerShell.Management\Get-ChildItem -Path $completers_path -Filter '*.Completer.ps1'
             foreach($item in $completers)
             {
                 $message = 'Re-importing Completer: {0}' -f $item.FullName
-                Write-Verbose -Message $message
+                Microsoft.PowerShell.Utility\Write-Verbose -Message $message
                 & $item.FullName
             }
         }

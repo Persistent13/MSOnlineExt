@@ -16,5 +16,5 @@ For more information run the command:
 Get-Help about_MSOnlineExt_Telemetry
 '@
 
-    Write-Warning -Message $telemetry_message
+    Microsoft.PowerShell.Utility\Write-Warning -Message $telemetry_message
 }

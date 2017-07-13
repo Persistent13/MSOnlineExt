@@ -1,8 +1,8 @@
 $ErrorActionPreference = 'Stop'
 try
 {
-    $script:module_config_path = Join-Path -Path $PSScriptRoot -ChildPath 'MSOnlineExt.config.json'
-    $script:module_config = Get-Content -Path $script:module_config_path -Raw | ConvertFrom-Json
+    $script:module_config_path = Microsoft.PowerShell.Management\Join-Path -Path $PSScriptRoot -ChildPath 'MSOnlineExt.config.json'
+    $script:module_config = Microsoft.PowerShell.Management\Get-Content -Path $script:module_config_path -Raw | Microsoft.PowerShell.Utility\ConvertFrom-Json
 
     $app_settings = [Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration]::new()
     # If disabled no telemetry will be sent
@@ -21,24 +21,24 @@ try
 }
 catch
 {
-    Write-Error -Message "Failed to set telemetry options: $PSItem"
+    Microsoft.PowerShell.Utility\Write-Error -Message "Failed to set telemetry options: $PSItem"
 }
 
 # Get all module file paths.
-$completers_path = Join-Path -Path $PSScriptRoot -ChildPath 'Completers'
-$public_path = Join-Path -Path $PSScriptRoot -ChildPath 'Public'
-$private_path = Join-Path -Path $PSScriptRoot -ChildPath 'Private'
+$completers_path = Microsoft.PowerShell.Management\Join-Path -Path $PSScriptRoot -ChildPath 'Completers'
+$public_path = Microsoft.PowerShell.Management\Join-Path -Path $PSScriptRoot -ChildPath 'Public'
+$private_path = Microsoft.PowerShell.Management\Join-Path -Path $PSScriptRoot -ChildPath 'Private'
 
 # Get all module files.
-$public = @( Get-ChildItem -Path $public_path -Filter '*.ps1' )
-$private = @( Get-ChildItem -Path $private_path -Filter '*.ps1' )
-$completers = Get-ChildItem -Path $completers_path -Filter '*.Completer.ps1'
+$public = @( Microsoft.PowerShell.Management\Get-ChildItem -Path $public_path -Filter '*.ps1' )
+$private = @( Microsoft.PowerShell.Management\Get-ChildItem -Path $private_path -Filter '*.ps1' )
+$completers = Microsoft.PowerShell.Management\Get-ChildItem -Path $completers_path -Filter '*.Completer.ps1'
 
 # Load all completers.
 foreach($item in $completers)
 {
     $message = 'Importing Completer: {0}' -f $item.FullName
-    Write-Verbose -Message $message
+    Microsoft.PowerShell.Utility\Write-Verbose -Message $message
     & $item.FullName
 }
 
@@ -51,14 +51,14 @@ foreach($cmdlet in @($public + $private))
     }
     catch
     {
-        Write-Error -Message "Failed to import cmdlet $($cmdlet.FullName): $PSItem"
+        Microsoft.PowerShell.Utility\Write-Error -Message "Failed to import cmdlet $($cmdlet.FullName): $PSItem"
     }
 }
 
 if($script:module_config.ApplicationInsights.TelemetryPrompt){ Write-TelemetryPrompt }
 
 # Present public functions to user
-Export-ModuleMember -Function $public.BaseName
+Microsoft.PowerShell.Core\Export-ModuleMember -Function $public.BaseName
 
 # This code will run when the module is removed and
 # will be sure that the TenantId default is removed
