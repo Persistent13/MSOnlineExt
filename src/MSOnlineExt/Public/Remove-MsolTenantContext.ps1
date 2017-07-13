@@ -34,7 +34,7 @@ function Remove-MsolTenantContext
 
         if($global:PSDefaultParameterValues['*-Msol*:TenantId'] -eq $null)
         {
-            Write-Verbose -Message 'Default TenantId has not been set. Please run Set-MsolTenantContext.'
+            Microsoft.PowerShell.Utility\Write-Verbose -Message 'Default TenantId has not been set. Please run Set-MsolTenantContext.'
             $target = '00000000-0000-0000-0000-000000000000'
         }
         else

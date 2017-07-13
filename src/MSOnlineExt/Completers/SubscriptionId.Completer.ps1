@@ -1,5 +1,5 @@
 $param_name = 'SubscriptionId'
-$cmdlets = Get-Command -Module 'MSOnline' -ParameterName $param_name
+$cmdlets = Microsoft.PowerShell.Core\Get-Command -Module 'MSOnline' -ParameterName $param_name
 
 $argument_completer = @{
     CommandName = $cmdlets.Name
@@ -7,7 +7,7 @@ $argument_completer = @{
     ScriptBlock = {
         param($command_name, $parameter_name, $word_to_complete, $command_ast, $fake_bound_parameter)
 
-        $item_list = Get-MsolPartnerContract | Where-Object { $PSItem.SkuPartNumber -match $word_to_complete } | ForEach-Object {
+        $item_list = MSOnline\Get-MsolPartnerContract | Microsoft.PowerShell.Core\Where-Object { $PSItem.SkuPartNumber -match $word_to_complete } | Microsoft.PowerShell.Core\ForEach-Object {
             $completion_text = $PSItem.ObjectId
             $tool_tip = 'All available licenses for the selected tenant.'
             $list_item_text = $PSItem.
@@ -20,4 +20,4 @@ $argument_completer = @{
     }
 }
 
-Register-ArgumentCompleter @argument_completer
+Microsoft.PowerShell.Core\Register-ArgumentCompleter @argument_completer
