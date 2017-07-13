@@ -1,13 +1,25 @@
-task Deploy UpdateManifest, UnloadModule, LoadModule, Test, UnloadModule, {
+task Deploy UpdateManifest, UnloadModule, LoadModule, Test, UnloadModule, StageModule, {
     if($env:APPVEYOR)
     {
-        $deploy_path = Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'Deploy'
-        Invoke-PSDeploy -Path $deploy_path -Recurse $true -Force
+        $deploy_path = "$PSScriptRoot\src\Deploy"
+        if($env:APPVEYOR_REPO_BRANCH -eq 'Master')
+        {
+            Invoke-PSDeploy -Path $deploy_path -Force -Tags 'Prod'
+        }
+        else
+        {
+            Invoke-PSDeploy -Path $deploy_path -Force -Tags 'Test'
+        }
     }
     else
     {
-        Write-Warning -Message 'The command "Invoke-Build -Task Deploy" should only be used during CI.'
+        Write-Warning -Message 'The command "Invoke-Build -Task Deploy" should only be used on the CI server.'
     }
+}
+task StageModule {
+    Copy-Item -Path "$PSScriptRoot\src\MSOnlineExt" -Recurse -Destination 'C:\module'
+    $env:PSModulePath += ';C:\module'
+    Import-Module -Name 'MSOnlineExt'
 }
 task Test {
     $test_path = Join-Path -Path ( Join-Path -Path $PSScriptRoot -ChildPath 'src' ) -ChildPath 'Test'
