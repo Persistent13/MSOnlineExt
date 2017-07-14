@@ -8,7 +8,7 @@ Deploy MSOnlineExt {
         }
     }
     By PSGalleryModule {
-        FromSource MSOnlineExt
+        FromSource C:\module\MSOnlineExt
         To PSGallery
         Tagged Prod
         WithOptions @{
