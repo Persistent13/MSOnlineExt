@@ -18,6 +18,10 @@ nuget:
 
 build: off
 
+environment:
+  NugetApiKey:
+    secure: UODT6L1HnLkZSbTCa3iiNl0k4Zld+WOVrq1nbcdX0q8X8BFAiLNdi1OcisvJ05xl
+
 # Use this to install any prerequisites
 test_script:
 - ps: >-
