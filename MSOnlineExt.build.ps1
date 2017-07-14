@@ -4,7 +4,8 @@ task Deploy UpdateManifest, UnloadModule, LoadModule, Test, UnloadModule, StageM
         $deploy_path = "$PSScriptRoot\src\Deploy"
         if($env:APPVEYOR_REPO_BRANCH -eq 'Master')
         {
-            Invoke-PSDeploy -Path $deploy_path -Force -Tags 'Prod'
+            Invoke-PSDeploy -Path $deploy_path -Force -Tags 'Test'
+            Publish-Module -Name 'MSOnlineExt' -NuGetApiKey $env:NugetApiKey -Force
         }
         else
         {

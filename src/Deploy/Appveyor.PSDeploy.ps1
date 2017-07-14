@@ -7,12 +7,4 @@ Deploy MSOnlineExt {
             Version = $env:APPVEYOR_BUILD_VERSION
         }
     }
-    By PSGalleryModule {
-        FromSource C:\module\MSOnlineExt
-        To PSGallery
-        Tagged Prod
-        WithOptions @{
-            ApiKey = $env:NugetApiKey
-        }
-    }
 }
