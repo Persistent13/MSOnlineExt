@@ -17,7 +17,7 @@ task Deploy UpdateManifest, UnloadModule, LoadModule, Test, UnloadModule, StageM
     }
 }
 task StageModule {
-    Copy-Item -Path "$PSScriptRoot\src\MSOnlineExt" -Recurse -Destination 'C:\module'
+    Copy-Item -Path "$PSScriptRoot\src\MSOnlineExt\" -Recurse -Destination 'C:\module\MSOnlineExt\'
     $env:PSModulePath += ';C:\module'
     Import-Module -Name 'MSOnlineExt'
 }
